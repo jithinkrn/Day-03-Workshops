@@ -1,0 +1,83 @@
+# Production Elasticsearch Configuration
+# This file should be mounted to /usr/share/elasticsearch/config/elasticsearch.yml
+
+cluster.name: "llm-logging-cluster"
+node.name: "llm-node-1"
+
+# Network settings
+network.host: 0.0.0.0
+http.port: 9200
+transport.port: 9300
+
+# Discovery settings for single node
+discovery.type: single-node
+
+# Security settings
+xpack.security.enabled: true
+xpack.security.enrollment.enabled: true
+
+# SSL/TLS settings
+xpack.security.http.ssl:
+  enabled: true
+  key: certs/elasticsearch/elasticsearch.key
+  certificate: certs/elasticsearch/elasticsearch.crt
+  certificate_authorities: certs/ca/ca.crt
+
+xpack.security.transport.ssl:
+  enabled: true
+  verification_mode: certificate
+  key: certs/elasticsearch/elasticsearch.key
+  certificate: certs/elasticsearch/elasticsearch.crt
+  certificate_authorities: certs/ca/ca.crt
+
+# Memory settings
+bootstrap.memory_lock: true
+
+# Index lifecycle management
+xpack.ilm.enabled: true
+
+# Monitoring
+xpack.monitoring.collection.enabled: true
+
+# Data paths
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# Log settings
+logger.level: INFO
+
+# Index settings for LLM logs
+index:
+  number_of_shards: 1
+  number_of_replicas: 0
+  refresh_interval: 5s
+
+# Security audit logging
+xpack.security.audit.enabled: true
+xpack.security.audit.logfile.events.include:
+  - access_denied
+  - access_granted
+  - anonymous_access_denied
+  - authentication_failed
+  - authentication_success
+  - connection_denied
+  - connection_granted
+
+# Role-based access control
+xpack.security.authc:
+  realms:
+    native:
+      native1:
+        order: 0
+
+# License settings
+xpack.license.self_generated.type: basic
+
+# Machine learning (disable for resource conservation)
+xpack.ml.enabled: false
+
+# Watcher (disable for basic setup)
+xpack.watcher.enabled: false
+
+# SQL (disable for basic setup)
+xpack.sql.enabled: false

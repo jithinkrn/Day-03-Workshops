@@ -1,0 +1,4 @@
+flask
+langfuse
+openai
+python-dotenv

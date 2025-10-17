@@ -23,5 +23,6 @@ htmlcov/
 *.orig
 *.rej
 *.class
+env
 
         

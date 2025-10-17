@@ -1,0 +1,9 @@
+langchain
+pytest
+deepeval
+llama-cpp-python
+detoxify
+Dbias
+loguru
+coverage
+Tensorflow
